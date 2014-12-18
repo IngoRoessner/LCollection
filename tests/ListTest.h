@@ -2,33 +2,33 @@
 #define __LListTest_H_
 
 #include "../LTest/src/LTest.h"
-#include "../src/LList.h"
+#include "../src/List.h"
 
-using LCollection::LList;
+using LCollection::LinkedList;
 using LTAssert::True;
 
 TestSuite LListTests = {
-        ltest().addTest("LList::LList()", [](){
-            LList<int> defaultConstructor;
+        ltest().addTest("LinkedList::LinkedList()", [](){
+            LinkedList<int> defaultConstructor;
             True(defaultConstructor.size() == 0);
             defaultConstructor.push_back(3);
             True(defaultConstructor.size() == 1);
             True(defaultConstructor.front() == 3);
         }),
 
-        ltest().addTest("LList::LList(std::list&)", [](){
+        ltest().addTest("LinkedList::LinkedList(std::list&)", [](){
             std::list<int> l;
             l.push_back(5);
-            LList<int> llist(l);
+            LinkedList<int> llist(l);
             True(l.size() == 1);
             True(l.front() == 5);
             l.push_back(3);
             True(l.size() == 2);
         }),
 
-        ltest().addTest("LList::LList(initializer_list)", [](){
-            LList<int> i = {1,2,3,4};
-            LList<double> d{5,6,7,8};
+        ltest().addTest("LinkedList::LinkedList(initializer_list)", [](){
+            LinkedList<int> i = {1,2,3,4};
+            LinkedList<double> d{5,6,7,8};
 
             True(i.size() == 4);
             True(d.size() == 4);
@@ -36,9 +36,9 @@ TestSuite LListTests = {
             True(d.front() == 5);
         }),
 
-        ltest().addTest("LList::LList(T...)", [](){
-            LList<int> i(1,2,3,4);
-            LList<double> d(5,6,7,8);
+        ltest().addTest("LinkedList::LinkedList(T...)", [](){
+            LinkedList<int> i(1,2,3,4);
+            LinkedList<double> d(5,6,7,8);
 
             True(i.size() == 4);
             True(d.size() == 4);

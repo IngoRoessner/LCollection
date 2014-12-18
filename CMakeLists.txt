@@ -26,9 +26,9 @@ set(SOURCE_FILES
     LTest/src/TestResult.h
     LTest/src/toStringPatch.h
     tests/main.cpp
-    tests/LListTest.h
+    tests/ListTest.h
     tests/OptionalTest.h
-    src/LList.h
+    src/List.h
     src/Optional.h)
 
 add_executable(LCollection ${SOURCE_FILES})
