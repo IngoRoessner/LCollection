@@ -57,6 +57,26 @@ namespace LCollection{
             return optional;
         }
 
+        List<std::list<value_type*>> findAll(std::function<bool(value_type&)> f){
+            List<std::list<value_type*>> result;
+            for(value_type& t : *this){
+                if(f(t)){
+                    result.push_back(&t);
+                }
+            }
+            return result;
+        }
+
+        List<std::list<value_type>> findAllCopy(std::function<bool(value_type&)> f){
+            List<std::list<value_type>> result;
+            for(value_type& t : *this){
+                if(f(t)){
+                    result.push_back(t);
+                }
+            }
+            return result;
+        }
+
         /**
         * use only for ordered Base
         */

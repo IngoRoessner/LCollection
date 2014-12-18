@@ -104,9 +104,40 @@ TestSuite LinkedListTests = {
 
             LTAssert::ExpectException<std::logic_error>([&](){l.get(20).value();}, "missing error");
             LTAssert::ExpectException<std::logic_error>([&](){l.get(5).value();}, "missing error");
+        }),
 
-        })
+        ltest().addTest("LinkedList::findAllCopy()", [](){
+            LinkedList<int> l(1,2,3,4,5,6);
+            LinkedList<int> even = l.findAllCopy([](int& i){return i%2 == 0;});
+            LinkedList<int> odd = l.findAllCopy([](int& i){return i%2 != 0;});
+            LinkedList<int> all = l.findAllCopy([](int& i){return true;});
+            LinkedList<int> none = l.findAllCopy([](int& i){return false;});
+            True(even != odd && even != all && even != none && odd != all && odd != none);
+            True(even == LinkedList<int>(2,4,6));
+            True(odd == LinkedList<int>(1,3,5));
+            True(all == LinkedList<int>(1,2,3,4,5,6));
+            True(none == LinkedList<int>());
+            even.get(0).value() = 5;
+            LTAssert::False(l.get(2).value() == 5);
+        }),
 
+        ltest().addTest("LinkedList::findAll()", [](){
+            LinkedList<int> l(1,2,3,4,5,6);
+            LinkedList<int*> even = l.findAll([](int& i){return i%2 == 0;});
+            LinkedList<int*> odd = l.findAll([](int& i){return i%2 != 0;});
+            LinkedList<int*> all = l.findAll([](int& i){return true;});
+            LinkedList<int*> none = l.findAll([](int& i){return false;});
+
+            True(even != odd && even != all && even != none && odd != all && odd != none);
+
+            True(even == LinkedList<int*>(&(l.get(1).value()), &(l.get(3).value()), &(l.get(5).value())), "1");
+            True(odd == LinkedList<int*>(&(l.get(0).value()), &(l.get(2).value()), &(l.get(4).value())), "2");
+            True(all == LinkedList<int*>(&(l.get(0).value()),&(l.get(1).value()),&(l.get(2).value()),&(l.get(3).value()),&(l.get(4).value()), &(l.get(5).value())), "3");
+            True(none == LinkedList<int*>(), "4");
+
+            *(even.get(0).value()) = 50;
+            LTAssert::True(l.get(1).value() == 50, "5");
+        }),
 };
 
 
@@ -208,7 +239,40 @@ TestSuite ArrayListTests = {
             LTAssert::ExpectException<std::logic_error>([&](){l.get(20).value();}, "missing error");
             LTAssert::ExpectException<std::logic_error>([&](){l.get(5).value();}, "missing error");
 
-        })
+        }),
+
+        ltest().addTest("ArrayList::findAllCopy()", [](){
+            ArrayList<int> l(1,2,3,4,5,6);
+            LinkedList<int> even = l.findAllCopy([](int& i){return i%2 == 0;});
+            LinkedList<int> odd = l.findAllCopy([](int& i){return i%2 != 0;});
+            LinkedList<int> all = l.findAllCopy([](int& i){return true;});
+            LinkedList<int> none = l.findAllCopy([](int& i){return false;});
+            True(even != odd && even != all && even != none && odd != all && odd != none);
+            True(even == LinkedList<int>(2,4,6));
+            True(odd == LinkedList<int>(1,3,5));
+            True(all == LinkedList<int>(1,2,3,4,5,6));
+            True(none == LinkedList<int>());
+            even.get(0).value() = 5;
+            LTAssert::False(l.get(2).value() == 5);
+        }),
+
+        ltest().addTest("ArrayList::findAll()", [](){
+            ArrayList<int> l(1,2,3,4,5,6);
+            LinkedList<int*> even = l.findAll([](int& i){return i%2 == 0;});
+            LinkedList<int*> odd = l.findAll([](int& i){return i%2 != 0;});
+            LinkedList<int*> all = l.findAll([](int& i){return true;});
+            LinkedList<int*> none = l.findAll([](int& i){return false;});
+
+            True(even != odd && even != all && even != none && odd != all && odd != none);
+
+            True(even == LinkedList<int*>(&(l.get(1).value()), &(l.get(3).value()), &(l.get(5).value())), "1");
+            True(odd == LinkedList<int*>(&(l.get(0).value()), &(l.get(2).value()), &(l.get(4).value())), "2");
+            True(all == LinkedList<int*>(&(l.get(0).value()),&(l.get(1).value()),&(l.get(2).value()),&(l.get(3).value()),&(l.get(4).value()), &(l.get(5).value())), "3");
+            True(none == LinkedList<int*>(), "4");
+
+            *(even.get(0).value()) = 50;
+            LTAssert::True(l.get(1).value() == 50, "5");
+        }),
 
 };
 
