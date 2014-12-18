@@ -61,7 +61,7 @@ namespace LCollection{
         bool isEngaged(){return this->ptr->isEngaged();}
         T& value(){return this->ptr->value();}
         T& valueOr(T& other){return this->ptr->valueOr(other);}
-        OptionalBase<T>& onEngaged(std::function<void()> f){return this->ptr->onEngaged(f);}
+        OptionalBase<T>& onEngaged(std::function<void(T&)> f){return this->ptr->onEngaged(f);}
         OptionalBase<T>& onDisengaged(std::function<void()> f){return this->ptr->onDisengaged(f);}
     };
 }
