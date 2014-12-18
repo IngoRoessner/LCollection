@@ -2,6 +2,7 @@
 #define __LList_H_
 
 #include <list>
+#include <vector>
 #include <initializer_list>
 #include <functional>
 #include "Optional.h"
@@ -40,6 +41,9 @@ namespace LCollection{
 
     template<typename T>
     using LinkedList = List<std::list<T>>;
+
+    template<typename T>
+    using ArrayList = List<std::vector<T>>;
 }
 
 #endif //__LList_H_
