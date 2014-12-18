@@ -6,8 +6,11 @@
 #include <initializer_list>
 #include <functional>
 #include "Optional.h"
+#include <string>
 
 namespace LCollection{
+
+    using std::to_string;
 
     template<typename Base>
     class List : public Base{
@@ -21,6 +24,20 @@ namespace LCollection{
         template<typename... P>
         List(P&&... ps): Base({ps...}){};
 
+        std::string toString(std::string delimiter = ", "){
+            std::string str = "";
+            bool first = true;
+            for(value_type& t : *this){
+                if(!first){
+                    str += delimiter;
+                }else{
+                    first = false;
+                }
+                str += to_string(t);
+            }
+            return str;
+        }
+
         Optional<value_type> findFirst(std::function<bool(value_type&)> f){
             for(value_type& t : *this){
                 if(f(t)){
@@ -29,13 +46,33 @@ namespace LCollection{
             }
             return Optional<value_type>();
         }
-/*        T& findLast(function<bool(T&)>);
-        LList<T> findAll(function<bool(T&)>);
+
+        Optional<value_type> findLast(std::function<bool(value_type&)> f){
+            Optional<value_type> optional;
+            for(value_type& t : *this){
+                if(f(t)){
+                    optional = Optional<value_type>::engage(t);
+                }
+            }
+            return optional;
+        }
+
+        Optional<value_type> get(unsigned int index){
+            unsigned int counter = 0;
+            for(value_type& t : *this){
+                if(counter == index){
+                    return Optional<value_type>::engage(t);
+                }
+                counter++;
+            }
+            return Optional<value_type>();
+        }
+
+/*        LList<T> findAll(function<bool(T&)>);
         LList<T*> findAll_ptr(function<bool(T&)>);
         bool any(function<bool(T&)>);
         bool all(function<bool(T&)>);
         bool no(function<bool(T&)>);
-        T& get(unsigned int index);
 */
     };
 

@@ -48,7 +48,7 @@ TestSuite LinkedListTests = {
         }),
 
         ltest().addTest("LinkedList::findFirst()", [](){
-            LinkedList<int> i(1,2,3,4);
+            LinkedList<int> i(1,1,3,4);
             auto result1 = i.findFirst([](int& element){return element == 3;});
             True(result1.value() == 3, "1");
 
@@ -60,6 +60,32 @@ TestSuite LinkedListTests = {
 
             i.findFirst([](int& element){return true;}).value() = 20;
             True(i.front() == 20, "4 (value wasnt seted");
+
+            i = LinkedList<int>(1,1,3,4);
+
+            i.findFirst([](int& element){return element == 1;}).value() = 30;
+            True(i.front() == 30, "5 (value wasnt seted)");
+        }),
+
+        ltest().addTest("LinkedList::findLast()", [](){
+            LinkedList<int> i(1,1,3,4);
+            auto result1 = i.findLast([](int& element){return element == 3;});
+            True(result1.value() == 3, "1");
+
+            auto result2 = i.findLast([](int& element){return true;});
+            True(result2.value() == 4, "2");
+
+            auto result3 = i.findLast([](int& element){return false;});
+            LTAssert::False(result3.isEngaged(), "3 (shouldnt be engaged)");
+
+            i.findLast([](int& element){return element == 1;}).value() = 20;
+            LTAssert::False(i.front() == 20, "4 (value wasnt seted)");
+            LTAssert::True(i.get(1).value() == 20, "5");
+
+            i = LinkedList<int>(1,1,3,4);
+
+            i.findLast([](int& element){return true;}).value() = 40;
+            True(i.get(3).value() == 40);
         })
 
 };
@@ -104,8 +130,9 @@ TestSuite ArrayListTests = {
             True(d.front() == 5);
         }),
 
+
         ltest().addTest("ArrayList::findFirst()", [](){
-            ArrayList<int> i(1,2,3,4);
+            ArrayList<int> i(1,1,3,4);
             auto result1 = i.findFirst([](int& element){return element == 3;});
             True(result1.value() == 3, "1");
 
@@ -117,6 +144,32 @@ TestSuite ArrayListTests = {
 
             i.findFirst([](int& element){return true;}).value() = 20;
             True(i.front() == 20, "4 (value wasnt seted");
+
+            i = ArrayList<int>(1,1,3,4);
+
+            i.findFirst([](int& element){return element == 1;}).value() = 30;
+            True(i.front() == 30, "5 (value wasnt seted)");
+        }),
+
+        ltest().addTest("ArrayList::findLast()", [](){
+            ArrayList<int> i(1,1,3,4);
+            auto result1 = i.findLast([](int& element){return element == 3;});
+            True(result1.value() == 3, "1");
+
+            auto result2 = i.findLast([](int& element){return true;});
+            True(result2.value() == 4, "2");
+
+            auto result3 = i.findLast([](int& element){return false;});
+            LTAssert::False(result3.isEngaged(), "3 (shouldnt be engaged)");
+
+            i.findLast([](int& element){return element == 1;}).value() = 20;
+            LTAssert::False(i.front() == 20, "4 (value wasnt seted)");
+            LTAssert::True(i.get(1).value() == 20, "5");
+
+            i = ArrayList<int>(1,1,3,4);
+
+            i.findLast([](int& element){return true;}).value() = 40;
+            True(i.get(3).value() == 40);
         })
 
 };

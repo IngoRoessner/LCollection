@@ -58,6 +58,14 @@ namespace LCollection{
         Optional(Optional<T>&& orig): ptr(orig.ptr){}
         Optional(EngagedOptional<T> orig): ptr(new EngagedOptional<T>(orig)){}
         Optional(DisengagedOptional<T> orig): ptr(new DisengagedOptional<T>(orig)){}
+
+        Optional<T>&  operator=( const Optional<T>& other) {
+            if( this != &other ) {
+                this->ptr = other.ptr;
+            }
+            return *this;
+        }
+
         bool isEngaged(){return this->ptr->isEngaged();}
         T& value(){return this->ptr->value();}
         T& valueOr(T& other){return this->ptr->valueOr(other);}
