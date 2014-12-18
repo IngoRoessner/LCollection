@@ -86,6 +86,25 @@ TestSuite LinkedListTests = {
 
             i.findLast([](int& element){return true;}).value() = 40;
             True(i.get(3).value() == 40);
+        }),
+
+        ltest().addTest("LinkedList::get()", [](){
+            LinkedList<int> l(0,1,2,3,4);
+            for(int i = 0; i<5; i++){
+                LTAssert::True(l.get(i).value() == i, "simple get");
+            }
+
+            for(int i = 0; i<5; i++){
+                l.get(i).value() = 2*i;
+            }
+
+            for(int i = 0; i<5; i++){
+                LTAssert::True(l.get(i).value() == 2*i, "reference not setted");
+            }
+
+            LTAssert::ExpectException<std::logic_error>([&](){l.get(20).value();}, "missing error");
+            LTAssert::ExpectException<std::logic_error>([&](){l.get(5).value();}, "missing error");
+
         })
 
 };
@@ -170,6 +189,25 @@ TestSuite ArrayListTests = {
 
             i.findLast([](int& element){return true;}).value() = 40;
             True(i.get(3).value() == 40);
+        }),
+
+        ltest().addTest("ArrayList::get()", [](){
+            ArrayList<int> l(0,1,2,3,4);
+            for(int i = 0; i<5; i++){
+                LTAssert::True(l.get(i).value() == i, "simple get");
+            }
+
+            for(int i = 0; i<5; i++){
+                l.get(i).value() = 2*i;
+            }
+
+            for(int i = 0; i<5; i++){
+                LTAssert::True(l.get(i).value() == 2*i, "reference not setted");
+            }
+
+            LTAssert::ExpectException<std::logic_error>([&](){l.get(20).value();}, "missing error");
+            LTAssert::ExpectException<std::logic_error>([&](){l.get(5).value();}, "missing error");
+
         })
 
 };

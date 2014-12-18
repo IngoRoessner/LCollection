@@ -57,6 +57,9 @@ namespace LCollection{
             return optional;
         }
 
+        /**
+        * use only for ordered Base
+        */
         Optional<value_type> get(unsigned int index){
             unsigned int counter = 0;
             for(value_type& t : *this){
@@ -73,6 +76,7 @@ namespace LCollection{
         bool any(function<bool(T&)>);
         bool all(function<bool(T&)>);
         bool no(function<bool(T&)>);
+        List<P> map(function<P(T)>);
 */
     };
 
