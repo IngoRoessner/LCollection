@@ -1,0 +1,3 @@
+[submodule "LTest"]
+	path = LTest
+	url = https://github.com/IngoRoessner/LTest.git
