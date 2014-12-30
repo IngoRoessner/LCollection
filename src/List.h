@@ -85,6 +85,17 @@ namespace LCollection{
         return Optional<ElementType>();
     }
 
+    template<typename ListType, typename ElementType>
+    bool anyInList(ListType* list, std::function<bool(ElementType&)> f){
+        for(ElementType& t : *list){
+            if(f(t)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     template<typename Base>
     class List : public Base{
     public:
@@ -122,6 +133,10 @@ namespace LCollection{
         */
         Optional<value_type> get(unsigned int index){
             return getInList<Base, value_type>(this, index);
+        }
+
+        bool any(std::function<bool(value_type&)> f){
+            return anyInList<Base, value_type>(this, f);
         }
 
 /*        

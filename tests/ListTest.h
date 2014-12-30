@@ -7,6 +7,7 @@
 using LCollection::LinkedList;
 using LCollection::ArrayList;
 using LTAssert::True;
+using LTAssert::False;
 
 TestSuite LinkedListTests = {
         ltest().addTest("LinkedList::LinkedList()", [](){
@@ -138,6 +139,14 @@ TestSuite LinkedListTests = {
             *(even.get(0).value()) = 50;
             LTAssert::True(l.get(1).value() == 50, "5");
         }),
+
+        ltest().addTest("LinkedList::any()", [](){
+            LinkedList<int> l(1,2,3,4,5,6);
+
+            True(l.any([](int& i){ return i == 3; }));
+            True(l.any([](int& i){ return i >= 1 && i <= 6; }));
+            False(l.any([](int& i){ return i == 8; }));
+        })
 };
 
 
@@ -273,6 +282,14 @@ TestSuite ArrayListTests = {
             *(even.get(0).value()) = 50;
             LTAssert::True(l.get(1).value() == 50, "5");
         }),
+
+        ltest().addTest("ArrayList::any()", [](){
+            ArrayList<int> l(1,2,3,4,5,6);
+
+            True(l.any([](int& i){ return i == 3; }));
+            True(l.any([](int& i){ return i >= 1 && i <= 6; }));
+            False(l.any([](int& i){ return i == 8; }));
+        })
 
 };
 
